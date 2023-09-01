@@ -1,0 +1,32 @@
+@import "_variables.scss";
+@import "_reset.scss";
+@import "_fonts.scss";
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  transition:
+    color 0.5s,
+    --color-bg-main 0.5s;
+  font-family: "Work Sans", sans-serif;
+
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#app {
+  font-size: var(--font-size-normal);
+  font-weight: var(--font-normal);
+  line-height: var(--line-height-normal);
+  background: var(--color-bg-main);
+  color: var(--color-text);
+  min-height: 100vh;
+}
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
