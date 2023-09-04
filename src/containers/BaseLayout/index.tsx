@@ -9,7 +9,6 @@ const HEADER_NAV = [
   { path: "/", name: "Home" },
   { path: "/product", name: "Product" },
   { path: "/about?name=af&age=10", name: "About" },
-  { path: "/login", name: "Login" },
 ];
 
 /**

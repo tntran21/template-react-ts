@@ -9,18 +9,17 @@ import { createProduct, getProductsList } from "@/services/product.service";
 import { clearEmptyProperties } from "@/core/utils/commonUtil";
 import { TFormError } from "@/core/interfaces";
 
-// Type for the form errors
-
 function ProductPage() {
   const [product, setProduct] = useState<ProductDto>(new ProductDto());
   const [errors, setErrors] = useState<TFormError<ProductDto>>({});
   const [apiLoading, setApiLoading] = useState<boolean>(false);
+  const [modeForm, setModeForm] = useState<"readonly" | "edit">("readonly");
 
   // handle get products list
-  const { data: productsList = [], refetch: refetchProductList } = useQuery<ProductDto[], Error>(
-    ["products"],
-    getProductsList
-  );
+  const { data: productsList = [], refetch: refetchProductList } = useQuery<
+    ProductDto[],
+    Error
+  >(["products"], getProductsList);
 
   /**
    * Validate create form
@@ -28,7 +27,7 @@ function ProductPage() {
    */
   const onValidateCreateForm = () => {
     const { name, price } = product;
-    const errors: TFormErrors = {};
+    const errors: TFormError<ProductDto> = {};
 
     if (!name) {
       errors.name = { type: 1, message: "Name is required" };
@@ -46,7 +45,9 @@ function ProductPage() {
    * @param evt : event button
    * @returns void
    */
-  const handleCreate = async (evt: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
+  const handleCreate = async (
+    evt: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
+  ) => {
     evt.preventDefault();
     const errorValid = onValidateCreateForm();
     setErrors(errorValid);
@@ -77,6 +78,7 @@ function ProductPage() {
         <StyledTitle>Create Product</StyledTitle>
         <ProductForm
           product={product}
+          mode={modeForm}
           setProduct={setProduct}
           onSubmit={handleCreate}
           errors={errors}

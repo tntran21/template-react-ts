@@ -1,7 +1,7 @@
 import { Navigate, useLocation } from "react-router-dom";
 import { ReactNode } from "react";
 
-import { useUserStore } from "@/stores/client/userStore";
+import { useAuth } from "@/core/hooks/useAuth";
 
 interface Props {
   children: ReactNode;
@@ -9,7 +9,7 @@ interface Props {
 
 const PrivateRouter = ({ children }: Props) => {
   const { pathname } = useLocation();
-  const { username } = useUserStore((state) => state);
+  const { username } = useAuth();
 
   // Implement your own logic here
   if (!username) {

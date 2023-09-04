@@ -10,6 +10,9 @@ const StyledMain = styled.main`
   flex: 1 1;
   box-sizing: border-box;
   padding: 15px;
+  width: 100%;
+  max-width: 1024px;
+  margin: 0 auto;
 `;
 
 export { StyledBaseLayout, StyledMain };

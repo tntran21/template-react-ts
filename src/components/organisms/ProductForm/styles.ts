@@ -7,8 +7,6 @@ const StyledProductForm = styled.form`
   justify-content: center;
   margin: 2rem 0;
   padding: 2rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   width: 100%;
 

@@ -1,9 +1,9 @@
 import { useRouteError } from "react-router-dom";
 import styled from "@emotion/styled";
+import { TAnyType } from "@/core/interfaces";
 
 function ErrorPage() {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const error: any = useRouteError();
+  const error: TAnyType = useRouteError();
 
   return (
     <StyledErrorPage id="error-page">

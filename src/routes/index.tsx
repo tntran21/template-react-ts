@@ -39,8 +39,11 @@ function AppRouter() {
           path: ROUTER_PATH.HOME,
           element: wrapperElement(HomePage),
         },
-        { path: ROUTER_PATH.ABOUT, element: <PrivateRouter>{wrapperElement(AboutPage)}</PrivateRouter> },
-        { path: ROUTER_PATH.PRODUCT, element: wrapperElement(ProductPage) },
+        { path: ROUTER_PATH.ABOUT, element: wrapperElement(AboutPage) },
+        {
+          path: ROUTER_PATH.PRODUCT,
+          element: <PrivateRouter>{wrapperElement(ProductPage)}</PrivateRouter>,
+        },
       ],
     },
     { path: ROUTER_PATH.LOGIN, element: wrapperElement(LoginPage) },

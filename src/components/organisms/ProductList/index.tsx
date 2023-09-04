@@ -1,5 +1,11 @@
 import { ProductDto } from "@/core/dto/productDto";
-import { ItemStyled, ProductAvatarStyled, ProductItemContentStyled, ProductListStyled } from "./styles";
+import {
+  ItemStyled,
+  ProductAvatarStyled,
+  ProductItemContentStyled,
+  ProductListStyled,
+} from "./styles";
+import NoData from "@/components/molecules/NoData";
 
 interface IProps {
   data?: ProductDto[];
@@ -27,7 +33,10 @@ const ProductItem = ({ product, onRowSelect }: IIemProps) => {
 
   return (
     <ItemStyled onClick={() => handleClickItem()}>
-      <ProductAvatarStyled src={product?.image ?? undefined} alt={product.name} />
+      <ProductAvatarStyled
+        src={product?.image ?? undefined}
+        alt={product.name}
+      />
       <ProductItemContentStyled>
         <div>
           <div>{product.name}</div>
@@ -50,9 +59,13 @@ const ProductItem = ({ product, onRowSelect }: IIemProps) => {
 const ProductList = ({ data = [], onRowSelect }: IProps) => {
   return (
     <ProductListStyled>
-      {data.map((item) => (
-        <ProductItem key={item.id} product={item} onRowSelect={onRowSelect} />
-      ))}
+      {data.length ? (
+        data.map((item) => (
+          <ProductItem key={item.id} product={item} onRowSelect={onRowSelect} />
+        ))
+      ) : (
+        <NoData />
+      )}
     </ProductListStyled>
   );
 };

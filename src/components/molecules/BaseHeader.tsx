@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useLocation } from "react-router";
 import styled from "@emotion/styled";
+import { useAuth } from "@/core/hooks/useAuth";
 
 interface IProps {
   headerRoutes: Array<{
@@ -12,9 +13,16 @@ interface IProps {
 const BaseHeader = ({ headerRoutes }: IProps) => {
   const location = useLocation();
   const { pathname } = location;
+  const { username: isLogin } = useAuth();
 
   // handle check className is active or pending of NavLink
-  const classStatusLink = ({ isActive, isPending }: { isActive: boolean; isPending: boolean }) => {
+  const classStatusLink = ({
+    isActive,
+    isPending,
+  }: {
+    isActive: boolean;
+    isPending: boolean;
+  }) => {
     if (isPending) {
       return "pending";
     }
@@ -26,20 +34,41 @@ const BaseHeader = ({ headerRoutes }: IProps) => {
 
   return (
     <StyledHeader className="base-layout-header">
-      <nav>
-        <ul>
-          {headerRoutes.map((route) => (
-            <li key={route.path} className={pathname === route.path ? "active" : ""}>
-              <StyledNavLink
-                to={route.path}
-                className={({ isActive, isPending }) => classStatusLink({ isActive, isPending })}
+      <div className="header-innter">
+        <nav>
+          <ul>
+            {headerRoutes.map((route) => (
+              <li
+                key={route.path}
+                className={pathname === route.path ? "active" : ""}
               >
-                {route.name}
-              </StyledNavLink>
-            </li>
-          ))}
-        </ul>
-      </nav>
+                <StyledNavLink
+                  to={route.path}
+                  className={({ isActive, isPending }) =>
+                    classStatusLink({ isActive, isPending })
+                  }
+                >
+                  {route.name}
+                </StyledNavLink>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        {/* Show login button if not login */}
+        <div>
+          {!isLogin && (
+            <StyledNavLink
+              to="/login"
+              className={({ isActive, isPending }) =>
+                classStatusLink({ isActive, isPending })
+              }
+            >
+              Login
+            </StyledNavLink>
+          )}
+        </div>
+      </div>
     </StyledHeader>
   );
 };
@@ -51,9 +80,18 @@ const StyledHeader = styled.header`
   left: 0;
   right: 0;
   z-index: 1000;
-  padding: 20px 15px;
+
   border-bottom: 1px solid rgb(var(--color-border-header));
   transition: all 0.3s ease-in-out;
+
+  .header-innter {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1024px;
+    margin: 0 auto;
+    padding: 20px 15px;
+  }
 
   nav {
     ul {
@@ -65,7 +103,7 @@ const StyledHeader = styled.header`
 
       li {
         margin-right: 20px;
-        font-weight: 600;
+
         &:first-of-type {
           font-size: 20px;
           font-weight: 900;
@@ -82,6 +120,7 @@ const StyledNavLink = styled(NavLink)`
   color: #000;
   text-decoration: none;
   transition: all 0.3s ease-in-out;
+  font-weight: 600;
   &:hover {
     opacity: 0.7;
   }

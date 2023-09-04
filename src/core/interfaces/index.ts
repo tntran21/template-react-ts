@@ -4,7 +4,7 @@ type TAnyType = any;
 /**
  * ### Error for response object.
  */
-interface IError {
+interface IResponseError {
   code: number;
   message: string;
 }
@@ -17,7 +17,7 @@ interface IResponse<T> {
   data?: T;
   status: number;
   message?: string;
-  error?: IError;
+  error?: IResponseError;
 }
 
 /**
@@ -37,4 +37,4 @@ type TFormError<T> = {
   [key in keyof T]?: IMessageError;
 };
 
-export type { TAnyType, IResponse, IError, IMessageError, TFormError };
+export type { TAnyType, IResponse, IResponseError, IMessageError, TFormError };
